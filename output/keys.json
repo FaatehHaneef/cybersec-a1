@@ -1,0 +1,58 @@
+{
+  "Client-mood2": {
+    "direction": "Client -> Server",
+    "mood": 2,
+    "a": 5,
+    "b": 4,
+    "a_inverse": 21
+  },
+  "Client-mood5": {
+    "direction": "Client -> Server",
+    "mood": 5,
+    "a": 11,
+    "b": 10,
+    "a_inverse": 19
+  },
+  "Client-mood8": {
+    "direction": "Client -> Server",
+    "mood": 8,
+    "a": 17,
+    "b": 16,
+    "a_inverse": 23
+  },
+  "Client-mood10": {
+    "direction": "Client -> Server",
+    "mood": 10,
+    "a": 21,
+    "b": 20,
+    "a_inverse": 5
+  },
+  "Server-mood2": {
+    "direction": "Server -> Client",
+    "mood": 2,
+    "a": 5,
+    "b": 4,
+    "a_inverse": 21
+  },
+  "Server-mood5": {
+    "direction": "Server -> Client",
+    "mood": 5,
+    "a": 11,
+    "b": 10,
+    "a_inverse": 19
+  },
+  "Server-mood8": {
+    "direction": "Server -> Client",
+    "mood": 8,
+    "a": 17,
+    "b": 16,
+    "a_inverse": 23
+  },
+  "Server-mood10": {
+    "direction": "Server -> Client",
+    "mood": 10,
+    "a": 21,
+    "b": 20,
+    "a_inverse": 5
+  }
+}
