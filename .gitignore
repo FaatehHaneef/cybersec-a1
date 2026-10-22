@@ -1,0 +1,28 @@
+# Private material: original handouts and working notes
+_private/
+
+# Upstream lab executables (see https://github.com/maadilrehman/PsycoSupport)
+PsycoSupport/
+
+# Submission bundle
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX build artefacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
