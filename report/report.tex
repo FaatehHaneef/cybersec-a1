@@ -691,27 +691,40 @@ responsibly so they can be fixed, which is what Section~\ref{sec:fixes} does for
 % ================================================================== 5
 \section{Submitted Files \& Environment}
 
+The submission contains everything needed to rerun the work on a machine with Ollama and \ct{llama3.2}. Step-by-step
+commands are in the included \ct{README.md}.
+
 \begin{table}[H]\centering
 \begin{tabularx}{\textwidth}{l X}
 \toprule
 File & Contents \\
 \midrule
 \ct{23I-0688-FaatehHaneef-A1.pdf} & This report. \\
+\ct{README.md}, \ct{requirements.txt} & How to rerun every step; Python dependency (matplotlib). \\
 \ct{ciphertexts.csv} & All 10 captured ciphertexts: ID, session, direction, mood, length, ciphertext, and the
                        encrypted username and API-key fields. \\
-\ct{server.py} & PsycoSupport server re-implemented with a local Ollama backend; same protocol, works with the
-                 original client (Section~\ref{sec:ownserver}). Run: \ct{python3 server.py}. \\
-\ct{relay.py} & Groq$\rightarrow$Ollama bridge that let the unmodified original \ct{server} run offline during
+\ct{evidence/capture.pcap} & The original loopback capture (Section~1). \\
+\ct{server/server.py} & PsycoSupport server re-implemented with a local Ollama backend; same protocol, works with the
+                 original client (Section~\ref{sec:ownserver}). \\
+\ct{scripts/relay.py} & Groq$\rightarrow$Ollama bridge that let the unmodified original \ct{server} run offline during
                 capture (Section~1.1). \\
-\ct{frequency\_analysis.py} & Generates the frequency tables and charts used in Section~2. \\
-\ct{affine.py} & Helper imported by \ct{frequency\_analysis.py}: English frequencies and affine-cipher maths. \\
+\ct{scripts/extract\_ciphertexts.py} & Reassembles the TCP streams in a \ct{.pcap} and writes \ct{ciphertexts.csv}. \\
+\ct{scripts/frequency\_analysis.py} & Frequency tables and charts (Section~2). \\
+\ct{scripts/crack\_keys.py} & Key recovery: hypotheses, congruences, inverses, $\chi^2$ testing, decryptions. \\
+\ct{scripts/decrypt.py} & General decryptor for any mood and direction (Section~3). \\
+\ct{scripts/affine.py} & Shared affine-cipher maths and English frequencies. \\
+\ct{secure\_demo/}, \ct{evidence/secure\_capture.pcap} & TLS~1.3 and UNIX-socket fixes, demo script, and the
+                attack rerun against them (Section~\ref{sec:fixes}). \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Regenerating the charts (Python 3 with matplotlib; keep \ct{affine.py} in the same folder):
+Rerunning the analysis from the provided capture:
 \begin{lstlisting}
-python frequency_analysis.py ciphertexts.csv output     # -> output/figures/*.png, output/tables/*.csv
+python3 scripts/extract_ciphertexts.py evidence/capture.pcap ciphertexts.csv
+python3 scripts/frequency_analysis.py ciphertexts.csv output
+python3 scripts/crack_keys.py ciphertexts.csv output
+python3 scripts/decrypt.py --csv ciphertexts.csv
 \end{lstlisting}
 
 \textbf{Environment.}
@@ -719,9 +732,7 @@ python frequency_analysis.py ciphertexts.csv output     # -> output/figures/*.pn
 \item \textbf{Platform:} Ubuntu 24.04 under WSL2 (Windows 11), NVIDIA RTX 3050 Ti; Ollama 0.40.4 serving
       \ct{llama3.2}; the supplied \ct{client} and \ct{server} executables, unmodified.
 \item \textbf{Capture:} \ct{tcpdump} 4.99 on the loopback interface; Wireshark 4.6 for \emph{Follow TCP Stream}.
-\item \textbf{Analysis:} Python 3 with matplotlib. Supporting scripts (not part of the requested submission) were
-      also written for extracting ciphertexts from the capture, testing key candidates, general decryption and the
-      TLS / UNIX-socket demonstration.
+\item \textbf{Analysis:} Python 3 (standard library) with matplotlib for the charts.
 \end{itemize}
 
 % ------------------------------------------------------------------ references
